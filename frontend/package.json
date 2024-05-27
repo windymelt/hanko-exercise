@@ -1,0 +1,27 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "@raquo/vite-plugin-import-side-effect": "0.2.0",
+    "@scala-js/vite-plugin-scalajs": "^1.0.0",
+    "@types/bootstrap": "^5.2.10",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
+  },
+  "dependencies": {
+    "@teamhanko/hanko-elements": "^0.11.0",
+    "@teamhanko/hanko-frontend-sdk": "^0.11.0",
+    "bootstrap": "5.3.0"
+  }
+}
