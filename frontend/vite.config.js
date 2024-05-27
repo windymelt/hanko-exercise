@@ -1,4 +1,5 @@
 import scalaJSPlugin from "@scala-js/vite-plugin-scalajs";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 import importSideEffectPlugin from "@raquo/vite-plugin-import-side-effect";
 import { defineConfig, loadEnv } from 'vite'
 
@@ -23,7 +24,15 @@ export default defineConfig(({ command, mode }) => {
    defNames: ["importStyle"], // see "Compact syntax" below
    rewriteModuleIds: ['**/*.css', '**/*.less'],
    verbose: true
- })
+ }),
+    basicSsl({
+      /** name of certification */
+      name: 'test',
+      /** custom trust domains */
+      domains: ['localhost'],
+      /** custom certification directory */
+      certDir: './.devServer/cert'
+    })
  ],
  // proxying to avoid CORS
  server: {

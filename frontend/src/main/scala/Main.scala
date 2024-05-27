@@ -53,7 +53,7 @@ object Main extends App {
   // val app = Application(hankoVar)
 
   render(container, div(child <-- app)) // should be called after render
-  register("http://localhost:5173/.hanko").`then`(result => {
+  register("https://localhost:5173/.hanko").`then`(result => {
     hankoVar.set(Some(result.hanko.asInstanceOf[Hanko]))
     println("Hanko Elements registered")
   })
@@ -109,7 +109,7 @@ object Main extends App {
           val backend = FetchBackend()
           val res = basicRequest.auth
             .bearer(userJwt.now().get)
-            .get(uri"http://localhost:5173/api/authenticated")
+            .get(uri"https://localhost:5173/api/authenticated")
             .send(backend)
           res.foreach(resp => resultString.set(resp.body.toString()))
         }

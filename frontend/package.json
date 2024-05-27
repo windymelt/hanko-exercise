@@ -16,6 +16,7 @@
     "@raquo/vite-plugin-import-side-effect": "0.2.0",
     "@scala-js/vite-plugin-scalajs": "^1.0.0",
     "@types/bootstrap": "^5.2.10",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.11"
   },
