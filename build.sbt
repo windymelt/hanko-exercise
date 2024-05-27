@@ -13,7 +13,15 @@ lazy val backend = crossProject(JVMPlatform)
   .settings(
     name := "hanko-exercise",
     version := "0.1.0-SNAPSHOT",
-    libraryDependencies += "org.scalameta" %% "munit" % "1.0.0" % Test
+    fork := true,
+    libraryDependencies += "org.scalameta" %% "munit" % "1.0.0" % Test,
+    libraryDependencies ++= Seq(
+      "com.lihaoyi" %% "cask" % "0.9.2",
+      "com.github.jwt-scala" %% "jwt-core" % "10.0.1",
+      "com.github.jwt-scala" %% "jwt-circe" % "10.0.1",
+      "com.softwaremill.sttp.client3" %% "core" % "3.9.7",
+      "com.auth0" % "jwks-rsa" % "0.22.1"
+    )
   )
 
 lazy val frontend = crossProject(JSPlatform)
@@ -40,5 +48,8 @@ lazy val frontend = crossProject(JSPlatform)
     libraryDependencies ++= Seq(
       "com.raquo" %%% "laminar" % "17.0.0",
       "com.raquo" %%% "waypoint" % "8.0.0"
+    ),
+    libraryDependencies ++= Seq(
+      "com.softwaremill.sttp.client3" %%% "core" % "3.9.7"
     )
   )

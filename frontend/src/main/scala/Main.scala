@@ -6,6 +6,7 @@ import com.raquo.laminar.nodes.ReactiveHtmlElement
 import com.raquo.laminar.tags.CustomHtmlTag
 import com.raquo.waypoint._
 import org.scalajs.dom
+import sttp.client3.FetchBackend
 import typings.teamhankoHankoElements.mod.register
 import typings.teamhankoHankoFrontendSdk.distLibDtoMod.User
 import typings.teamhankoHankoFrontendSdk.mod.Hanko
@@ -79,6 +80,8 @@ object Main extends App {
   def Dashboard(hankoVar: Var[Option[Hanko]]) = {
     val logoutFunc = Var[Option[() => Unit]](None)
     val userSignal = EventBus[User]()
+    val userJwt = Var[Option[String]](None)
+    val resultString = Var[String]("Not sent yet...")
     div(
       cls := "container",
       hankoVar.signal --> (
@@ -90,11 +93,31 @@ object Main extends App {
               println(u.email)
               userSignal.emit(u)
             })
+          userJwt.set(Some(h.session.get().jwt.get))
         })
       ),
       "you are logged in",
       div(
         child <-- userSignal.events.map(u => s"You are ${u.email}")
+      ),
+      button(
+        className := "btn btn-primary",
+        "send authorized request",
+        onClick --> { _ =>
+          println("sent")
+          import sttp.client3._
+          val backend = FetchBackend()
+          val res = basicRequest.auth
+            .bearer(userJwt.now().get)
+            .get(uri"http://localhost:5173/api/authenticated")
+            .send(backend)
+          res.foreach(resp => resultString.set(resp.body.toString()))
+        }
+      ),
+      div(
+        code(
+          text <-- resultString
+        )
       ),
       button(
         className := "btn btn-secondary",

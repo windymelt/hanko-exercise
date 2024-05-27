@@ -33,6 +33,11 @@ export default defineConfig(({ command, mode }) => {
            rewrite: (path) => path.replace(/^\/.hanko/, ''),
            changeOrigin: true,
          },
+         '/api/': {
+           target: "http://localhost:8080",
+           rewrite: (path) => path.replace(/^\/api/, ''),
+           changeOrigin: true,
+         },
        },
      },
     }
